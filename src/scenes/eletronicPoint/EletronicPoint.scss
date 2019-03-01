@@ -23,6 +23,9 @@ table {
     td {
         font-weight: unset;
         padding: 10px;
+        @media (max-width: 780px) {
+            padding: 10px 0;
+        }
     }
     th {
         background-color: #36304a;
@@ -31,5 +34,11 @@ table {
     td:hover {
         background-color: #6c7ae0;
         color: #fff;
+    }
+    @media (max-width: 780px) {
+        th:nth-child(n+5),
+        td:nth-child(n+5) {
+            display: none;
+        }
     }
 }

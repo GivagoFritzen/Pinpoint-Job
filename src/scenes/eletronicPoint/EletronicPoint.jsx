@@ -37,7 +37,7 @@ export class EletronicPoint extends Component {
                     objectStore.openCursor().onsuccess = function (event) {
                         const cursor = event.target.result;
                         if (cursor) {
-                            const date = moment(cursor.value).format('DD MMMM YYYY, h:mm:ss a');
+                            const date = moment(cursor.value).format('DD/M/YYYY, H:mm:ss');
 
                             if (lastDate === '' || date.substring(0, 2) !== lastDate.substring(0, 2)) {
                                 timeTableTR = document.createElement('tr');
