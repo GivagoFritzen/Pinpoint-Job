@@ -11,7 +11,7 @@ export class EletronicPoint extends Component {
 
     _getMarkPoint() {
         if (!window.indexedDB) {
-            console.log("Seu navegador não suporta IndexedDB");
+            toast.error("Seu navegador não suporta IndexedDB");
         }
         else {
             /* Var's */
@@ -63,7 +63,7 @@ export class EletronicPoint extends Component {
 
     _markPoint = () => {
         if (!window.indexedDB) {
-            console.log("Seu navegador não suporta IndexedDB");
+            toast.error("Seu navegador não suporta IndexedDB");
         }
         else {
             /* Var's */
