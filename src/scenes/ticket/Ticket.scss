@@ -1,0 +1,26 @@
+.ticket {
+    display: flex;
+    justify-content: center;
+    margin-top: 25px;
+    >.card {
+        background-color: white;
+        border: solid 10px;
+        border-color: white;
+        border-left-color: red;
+        border-radius: 10px;
+        color: black;
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-end;
+        padding: 25px;
+        max-width: 1440px;
+        width: 50%;
+        >div {
+            align-items: center;
+            display: flex;
+            >p {
+                padding-right: 15px;
+            }
+        }
+    }
+}

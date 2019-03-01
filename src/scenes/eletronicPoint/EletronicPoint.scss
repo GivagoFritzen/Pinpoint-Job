@@ -1,0 +1,35 @@
+button {
+    background-color: Transparent;
+    background-repeat: no-repeat;
+    border: none;
+    cursor: pointer;
+    overflow: hidden;
+    .finger-sprint {
+        height: 100px;
+    }
+    .finger-sprint:hover {
+        -webkit-filter: invert(1);
+        filter: invert(1);
+    }
+}
+
+table {
+    background-color: #fff;
+    border-spacing: 0;
+    border-collapse: collapse;
+    color: black;
+    width: 100%;
+    th,
+    td {
+        font-weight: unset;
+        padding: 10px;
+    }
+    th {
+        background-color: #36304a;
+        color: #fff;
+    }
+    td:hover {
+        background-color: #6c7ae0;
+        color: #fff;
+    }
+}
