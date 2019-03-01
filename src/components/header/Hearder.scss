@@ -25,6 +25,9 @@ header {
                 justify-content: center;
                 text-decoration: none;
                 margin: 0;
+                -webkit-transition-duration: 0.4s;
+                /* Safari */
+                transition-duration: 0.4s;
                 &:hover {
                     background-color: rgb(126, 64, 126);
                     color: white;

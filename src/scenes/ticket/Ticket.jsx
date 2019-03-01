@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
+import { Button } from '../../components/button/Button';
 
-import './Ticket.scss'
+import './Ticket.scss';
 
 export class Ticket extends Component {
 
@@ -74,6 +75,12 @@ export class Ticket extends Component {
                         <h2>R$</h2>
                         <h1>{(this.state.currentMoney / this._getWeeDays()).toFixed(2)}</h1>
                     </div>
+                </div>
+
+                <div className="discount">
+                    <h2>Descontar valor:</h2>
+                    <input type="number"></input>
+                    <Button text="Confirmar" onClick={() => console.log('teste')}/>
                 </div>
             </div>
         );

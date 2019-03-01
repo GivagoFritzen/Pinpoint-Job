@@ -20,7 +20,7 @@ export class Header extends Component {
         return (
             <header>
                 <ul className="menu">
-                    <li className="sub-menu li-icon" onClick={this._openMenu}><Link to="/"><FontAwesomeIcon icon={faBars} className="icon" /></Link></li>
+                    <li className="sub-menu li-icon" onClick={this._openMenu}><Link to="#"><FontAwesomeIcon icon={faBars} className="icon" /></Link></li>
                     <li className="sub-menu"><Link to="/">Ponto</Link></li>
                     <li className="sub-menu"><Link to="/ticket">Ticket</Link></li>
                 </ul>
