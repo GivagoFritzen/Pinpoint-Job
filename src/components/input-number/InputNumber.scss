@@ -1,0 +1,8 @@
+.cc-input-number {
+    padding: 10px;
+    -moz-appearance: textfield;
+    &::-webkit-outer-spin-button,
+    &::-webkit-inner-spin-button {
+        -webkit-appearance: none;
+    }
+}
