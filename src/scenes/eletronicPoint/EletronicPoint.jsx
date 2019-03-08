@@ -7,11 +7,10 @@ import * as emailjs from 'emailjs-com';
 import './EletronicPoint.scss'
 
 import Fingersprint from '../../images/Fingerprint.svg'
-import { EmailLayout } from '../../components/email-layout/EmailLayout';
 
 export class EletronicPoint extends Component {
 
-    componentDidMount(){
+    componentDidMount() {
         this._sendEmail();
     }
 
@@ -111,14 +110,26 @@ export class EletronicPoint extends Component {
     }
 
     _sendEmail() {
+        var template_params = {
+            "reply_to": "to",
+            "from_name": "from",
+            "to_name": "Sujeito",
+            "message_html": "Uma mensagem"
+        }
 
+        var service_id = "";
+        var template_id = "";
+        var user_id = '';
+        emailjs.send(service_id, template_id, template_params, user_id).then(response => {
+            toast.success('Email enviado com sucesso');
+        }).catch((error) => {
+            toast.error("Erro ao enviar email: " + error);
+        })
     }
 
     render() {
         return (
             <div>
-                {/* <EmailLayout /> */}
-
                 <ToastContainer
                     position="top-right"
                     autoClose={2000}
