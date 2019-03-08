@@ -57,7 +57,7 @@ export class Ticket extends Component {
     }
 
     _handleDiscountMoney = () => {
-        const { currentMoney, currentDiscountValue } = this.state //#endregion
+        const { currentMoney, currentDiscountValue } = this.state
 
         this.setState(() => ({
             currentMoney: currentMoney - currentDiscountValue,

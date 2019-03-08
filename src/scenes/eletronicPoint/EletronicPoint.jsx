@@ -2,12 +2,18 @@ import React, { Component } from 'react';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import moment from 'moment'
+import * as emailjs from 'emailjs-com';
 
 import './EletronicPoint.scss'
 
 import Fingersprint from '../../images/Fingerprint.svg'
+import { EmailLayout } from '../../components/email-layout/EmailLayout';
 
 export class EletronicPoint extends Component {
+
+    componentDidMount(){
+        this._sendEmail();
+    }
 
     _getMarkPoint() {
         if (!window.indexedDB) {
@@ -104,9 +110,15 @@ export class EletronicPoint extends Component {
         }
     }
 
+    _sendEmail() {
+
+    }
+
     render() {
         return (
             <div>
+                {/* <EmailLayout /> */}
+
                 <ToastContainer
                     position="top-right"
                     autoClose={2000}
