@@ -34,6 +34,11 @@ table {
     td:hover {
         background-color: #6c7ae0;
         color: #fff;
+        cursor: pointer;
+    }
+    th:nth-child(n+9),
+    td:nth-child(n+9) {
+        display: none;
     }
     @media (max-width: 780px) {
         th:nth-child(n+5),
