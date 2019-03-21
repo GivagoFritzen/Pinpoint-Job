@@ -13,4 +13,8 @@ $ npm install
 $ npm start
 ```
 
+## Serviços Nescessários
+
+O projeto utilizasse do `emailjs` e do `mailgun` para enviar email.
+
 Acesse a página no link: http://localhost:3000
