@@ -4,7 +4,9 @@
 - PROJETO NÃO CONCLUIDO
 ```
 
-É um projeto simples, no intuito de poder controlar o ponto, ticket refeição.
+É um projeto simples, no intuito de poder controlar o ponto, ticket refeição e de aprendizado.
+
+Utilizando tecnologias como IndexedDB.
 
 ## Instalação
 
