@@ -24,3 +24,6 @@ Acesse a página no link: http://localhost:3000
 ## Serviços Nescessários
 
 O projeto utilizasse do `emailjs` e do `mailgun` para enviar email.
+
+## Licença
+MIT license.
