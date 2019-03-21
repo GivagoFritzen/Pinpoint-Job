@@ -1,5 +1,9 @@
 # Pinpoint-Job
 
+```diff
+- PROJETO NÃO CONCLUIDO
+```
+
 É um projeto simples, no intuito de poder controlar o ponto, ticket refeição.
 
 ## Instalação
@@ -13,8 +17,8 @@ $ npm install
 $ npm start
 ```
 
+Acesse a página no link: http://localhost:3000
+
 ## Serviços Nescessários
 
 O projeto utilizasse do `emailjs` e do `mailgun` para enviar email.
-
-Acesse a página no link: http://localhost:3000
