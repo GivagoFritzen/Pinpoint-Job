@@ -22,4 +22,4 @@ Acesse a página no link: http://localhost:3000
 O projeto utilizasse do `emailjs` e do `mailjet` para enviar email.
 
 ## Licença
-`Licença MIT.`
+[Mit](https://opensource.org/licenses/MIT)
