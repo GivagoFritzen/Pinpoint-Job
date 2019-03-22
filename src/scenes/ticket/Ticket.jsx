@@ -128,7 +128,7 @@ export class Ticket extends Component {
         const { currentMoney, currentAddValue } = this.state
         this.setState(({
             currentMoney: (parseFloat(currentMoney) + parseFloat(currentAddValue)),
-        }), this._saveValue())
+        }), this._saveValue(parseFloat(currentAddValue)))
     }
 
     _handleAddValue = (value) => {
@@ -142,7 +142,7 @@ export class Ticket extends Component {
 
         this.setState(({
             currentMoney: parseFloat(currentMoney) - parseFloat(currentDiscountValue),
-        }), this._saveValue())
+        }), this._saveValue(parseFloat(-currentDiscountValue)))
     }
 
     _handleDiscountValue = (value) => {
@@ -151,7 +151,7 @@ export class Ticket extends Component {
         }))
     }
 
-    _saveValue() {
+    _saveValue(changeValue) {
         if (!window.indexedDB) {
             toast.error("Seu navegador não suporta IndexedDB");
         }
@@ -181,8 +181,10 @@ export class Ticket extends Component {
                     db = event.target.result;
                     transaction = db.transaction(["Dinheiro"], 'readwrite');
                     objectStore = transaction.objectStore("Dinheiro", { keyPath: "id", autoIncrement: true });
+                    const newMoney = (currentMoney + changeValue)
+                    objectStore.clear()
                     objectStore.put(
-                        { Value: currentMoney }
+                        { Value: newMoney }
                     );
                     objectStore.onsuccess = function () {
                         toast.success('Dinheiro Atualizado!');
