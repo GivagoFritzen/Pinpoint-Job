@@ -9,8 +9,8 @@ Utilizando tecnologias como IndexedDB.
 Faça o clone do nosso repositório e utilize os comandos:
 
 ```
-$ git clone https://github.com/Rocketseat/blog-react-material-ui.git
-$ cd blog-react-material-ui
+$ git clone https://github.com/GivagoFritzen/Pinpoint-Job.git
+$ cd Pinpoint-Job
 $ npm install
 $ npm start
 ```
