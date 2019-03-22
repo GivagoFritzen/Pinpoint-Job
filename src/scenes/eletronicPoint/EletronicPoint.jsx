@@ -12,7 +12,7 @@ import { EmailLayout } from '../../components/email-layout/EmailLayout';
 export class EletronicPoint extends Component {
 
     componentDidMount() {
-        this._sendEmail();
+        //this._sendEmail();
         this._getMarkPoint()
     }
 
@@ -45,7 +45,7 @@ export class EletronicPoint extends Component {
                     try {
                         db = event.target.result;
                         transaction = db.transaction(["Ponto"], 'readwrite');
-                        objectStore = transaction.objectStore("Ponto");
+                        objectStore = transaction.objectStore('Ponto');
                         request = objectStore.getAll("Ponto");
 
                         let dates = []
