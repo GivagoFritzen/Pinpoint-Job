@@ -58,28 +58,11 @@ export class EletronicPoint extends Component {
                                 request = objectStore.getAll("Ponto");
 
                                 let dates = []
-                                let lastDate = ''
-                                let timeTableTR
-
                                 objectStore.openCursor().onsuccess = function (event) {
                                     const cursor = event.target.result;
                                     if (cursor) {
-                                        const date = moment(cursor.value).format('DD/M/YYYY, H:mm:ss');
-
-                                        if (lastDate === '' || date.substring(0, 2) !== lastDate.substring(0, 2)) {
-                                            timeTableTR = document.createElement('tr');
-                                            timetable.appendChild(timeTableTR);
-                                            lastDate = date;
-                                        }
-
                                         dates.push(cursor.value);
-
-                                        let timeTableTD = document.createElement('td');
-                                        timeTableTD.innerHTML += date
-                                        timeTableTR.appendChild(timeTableTD);
-
                                         cursor.continue();
-                                        timetable.appendChild(timeTableTR);
                                     }
                                     else {
                                         resolve(dates)
@@ -251,7 +234,9 @@ export class EletronicPoint extends Component {
                 <h1>Ponto</h1>
                 <button onClick={() =>
                     this._markPoint(this).then(response => {
-                        this.setState(() => ({ dates: response }))
+                        const date = this.state.dates
+                        date.push(response)
+                        this.setState(() => ({ dates: date }))
                     }).catch(function (error) {
                         toast.error(error.message);
                     })}>
@@ -289,7 +274,7 @@ export class EletronicPoint extends Component {
         let lastDate = ''
         let matrix = [], i, k;
         for (i = 0, k = -1; i < dates.length; i++) {
-            const date = moment(dates[i].value).format('DD/M/YYYY, H:mm:ss');
+            const date = moment(dates[i]).format('DD/M/YYYY, H:mm:ss');
 
             if (lastDate === '' || date.substring(0, 2) !== lastDate.substring(0, 2)) {
                 lastDate = date;
