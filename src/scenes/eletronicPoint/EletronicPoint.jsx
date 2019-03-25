@@ -11,131 +11,145 @@ import { EmailLayout } from '../../components/email-layout/EmailLayout';
 
 export class EletronicPoint extends Component {
 
+    state = {
+        dates: []
+    }
+
     componentDidMount() {
+        this._getMarkPoint(this).then(response => {
+            this.setState(() => ({ dates: response }))
+        }).catch(function (error) {
+            toast.error(error.message);
+        });
         //this._sendEmail();
-        this._getMarkPoint()
     }
 
     _getMarkPoint() {
-        if (!window.indexedDB) {
-            toast.error("Seu navegador não suporta IndexedDB");
-        }
-        else {
-            /* Var's */
-            let db;
-            let objectStore;
-            let request;
-            let transaction;
+        return new Promise(
+            function (resolve, reject) {
+                if (!window.indexedDB) {
+                    reject(Error("Seu navegador não suporta IndexedDB"));
+                }
+                else {
+                    /* Var's */
+                    let db;
+                    let objectStore;
+                    let request;
+                    let transaction;
 
-            request = window.indexedDB.open("Ponto", 1);
-            request.onerror = function () {
-                toast.error("Erro ao abrir o banco de dados ");
-            }
+                    request = window.indexedDB.open("Ponto", 1);
+                    request.onerror = function () {
+                        reject(Error("Erro ao abrir o banco de dados "));
+                    }
 
-            request.onupgradeneeded = function (event) {
-                toast.success("Atualizando...");
-                db = event.target.result;
-                objectStore = db.createObjectStore("Ponto", { keyPath: "id", autoIncrement: true });
-                db.close();
-            };
-
-            request.onsuccess = function (event) {
-                const timetable = document.getElementById('timetable');
-                if (timetable.childNodes.length === 1) {
-                    try {
+                    request.onupgradeneeded = function (event) {
                         db = event.target.result;
-                        transaction = db.transaction(["Ponto"], 'readwrite');
-                        objectStore = transaction.objectStore('Ponto');
-                        request = objectStore.getAll("Ponto");
+                        objectStore = db.createObjectStore("Ponto", { keyPath: "id", autoIncrement: true });
+                        db.close();
+                    };
 
-                        let dates = []
-                        let lastDate = ''
-                        let timeTableTR
+                    request.onsuccess = function (event) {
+                        const timetable = document.getElementById('timetable');
+                        if (timetable.childNodes.length === 1) {
+                            try {
+                                db = event.target.result;
+                                transaction = db.transaction(["Ponto"], 'readwrite');
+                                objectStore = transaction.objectStore('Ponto');
+                                request = objectStore.getAll("Ponto");
 
-                        objectStore.openCursor().onsuccess = function (event) {
-                            const cursor = event.target.result;
-                            if (cursor) {
-                                const date = moment(cursor.value).format('DD/M/YYYY, H:mm:ss');
+                                let dates = []
+                                let lastDate = ''
+                                let timeTableTR
 
-                                if (lastDate === '' || date.substring(0, 2) !== lastDate.substring(0, 2)) {
-                                    timeTableTR = document.createElement('tr');
-                                    timetable.appendChild(timeTableTR);
-                                    lastDate = date;
+                                objectStore.openCursor().onsuccess = function (event) {
+                                    const cursor = event.target.result;
+                                    if (cursor) {
+                                        const date = moment(cursor.value).format('DD/M/YYYY, H:mm:ss');
+
+                                        if (lastDate === '' || date.substring(0, 2) !== lastDate.substring(0, 2)) {
+                                            timeTableTR = document.createElement('tr');
+                                            timetable.appendChild(timeTableTR);
+                                            lastDate = date;
+                                        }
+
+                                        dates.push(cursor.value);
+
+                                        let timeTableTD = document.createElement('td');
+                                        timeTableTD.innerHTML += date
+                                        timeTableTR.appendChild(timeTableTD);
+
+                                        cursor.continue();
+                                        timetable.appendChild(timeTableTR);
+                                    }
+                                    else {
+                                        resolve(dates)
+                                    }
                                 }
-
-                                dates.push(cursor.value);
-
-                                let timeTableTD = document.createElement('td');
-                                timeTableTD.innerHTML += date
-                                timeTableTR.appendChild(timeTableTD);
-
-                                cursor.continue();
-
-                                timetable.appendChild(timeTableTR);
                             }
-                        }
-                    }
-                    catch (event) {
-                        toast.error("Erro:" + event);
-                    }
-                };
+                            catch (event) {
+                                reject(Error("Erro:" + event));
+                            }
+                        };
 
-            }
-        }
+                    }
+                }
+            })
     }
 
     _markPoint = () => {
-        if (!window.indexedDB) {
-            toast.error("Seu navegador não suporta IndexedDB");
-        }
-        else {
-            /* Var's */
-            let db;
-            let objectStore;
-            let request;
-            let transaction;
+        return new Promise(
+            function (resolve, reject) {
+                if (!window.indexedDB) {
+                    reject(Error("Seu navegador não suporta IndexedDB"));
+                }
+                else {
+                    /* Var's */
+                    let db;
+                    let objectStore;
+                    let request;
+                    let transaction;
 
-            request = window.indexedDB.open("Ponto", 1);
-            request.onerror = function () {
-                toast.error("Erro ao abrir o banco de dados ");
-            }
-
-            request.onupgradeneeded = function (event) {
-                toast.success("Atualizando...");
-                db = event.target.result;
-                objectStore = db.createObjectStore("Ponto", { keyPath: "id", autoIncrement: true });
-                db.close();
-            };
-
-            request.onsuccess = function (event) {
-                try {
-                    db = event.target.result;
-                    transaction = db.transaction(["Ponto"], 'readwrite');
-                    objectStore = transaction.objectStore("Ponto", { keyPath: "id", autoIncrement: true });
-
-                    //Test                    
-                    var x = new Date();
-                    x.setDate(1);
-                    x.setMonth(x.getMonth() - 4);
-                    objectStore.add(
-                        x
-                    );
-
-                    objectStore.add(
-                        new Date()
-                    );
-                    objectStore.onsuccess = function () {
-                        toast.success('Ponto Atualizado!!!');
+                    request = window.indexedDB.open("Ponto", 1);
+                    request.onerror = function () {
+                        reject(Error("Erro ao abrir o banco de dados "));
                     }
-                    db.close();
-                }
-                catch (event) {
-                    toast.error("Erro:" + event);
-                }
-            }
-        }
 
-        window.location.reload();
+                    request.onupgradeneeded = function (event) {
+                        db = event.target.result;
+                        objectStore = db.createObjectStore("Ponto", { keyPath: "id", autoIncrement: true });
+                        db.close();
+                    };
+
+                    request.onsuccess = function (event) {
+                        try {
+                            db = event.target.result;
+                            transaction = db.transaction(["Ponto"], 'readwrite');
+                            objectStore = transaction.objectStore("Ponto", { keyPath: "id", autoIncrement: true });
+
+                            //Test       
+                            /*             
+                            var x = new Date();
+                            x.setDate(1);
+                            x.setMonth(x.getMonth() - 4);
+                            objectStore.add(
+                                x
+                            );
+                            */
+
+                            const newDate = new Date()
+                            objectStore.add(
+                                newDate
+                            );
+                            db.close();
+
+                            resolve(newDate);
+                        }
+                        catch (event) {
+                            reject(Error(("Erro:" + event)));
+                        }
+                    }
+                }
+            })
     }
 
     _sendEmail() {
@@ -235,13 +249,18 @@ export class EletronicPoint extends Component {
                     pauseOnHover
                 />
                 <h1>Ponto</h1>
-                <button onClick={this._markPoint}>
+                <button onClick={() =>
+                    this._markPoint(this).then(response => {
+                        this.setState(() => ({ dates: response }))
+                    }).catch(function (error) {
+                        toast.error(error.message);
+                    })}>
                     <img src={Fingersprint} className="finger-sprint" alt="Finger Sprint" />
                 </button>
 
                 <h2>Tabela</h2>
                 {this.renderTimeTable()}
-            </div>
+            </div >
         );
     }
 
@@ -259,8 +278,36 @@ export class EletronicPoint extends Component {
                         <th>Entrada 4° Turno</th>
                         <th>Saida 4° Turno</th>
                     </tr>
+                    {this.renderTimeTableTds()}
                 </tbody>
             </table>
         );
+    }
+
+    renderTimeTableTds() {
+        const { dates } = this.state
+        let lastDate = ''
+        let matrix = [], i, k;
+        for (i = 0, k = -1; i < dates.length; i++) {
+            const date = moment(dates[i].value).format('DD/M/YYYY, H:mm:ss');
+
+            if (lastDate === '' || date.substring(0, 2) !== lastDate.substring(0, 2)) {
+                lastDate = date;
+                k++;
+                matrix[k] = [];
+            }
+
+            matrix[k].push(date);
+        }
+
+        return matrix.map((row, key) => {
+            return <tr key={key}>
+                {row.map((day, key) => {
+                    return (
+                        <td key={key}>{day}</td>
+                    )
+                })}
+            </tr>
+        })
     }
 }
