@@ -21,7 +21,7 @@ export class EletronicPoint extends Component {
         }).catch(function (error) {
             toast.error(error.message);
         });
-        //this._sendEmail();
+        this._sendEmail();
     }
 
     _getMarkPoint() {
@@ -109,16 +109,6 @@ export class EletronicPoint extends Component {
                             transaction = db.transaction(["Ponto"], 'readwrite');
                             objectStore = transaction.objectStore("Ponto", { keyPath: "id", autoIncrement: true });
 
-                            //Test       
-                            /*             
-                            var x = new Date();
-                            x.setDate(1);
-                            x.setMonth(x.getMonth() - 4);
-                            objectStore.add(
-                                x
-                            );
-                            */
-
                             const newDate = new Date()
                             objectStore.add(
                                 newDate
@@ -195,7 +185,7 @@ export class EletronicPoint extends Component {
                                 "reply_to": "to",
                                 "from_name": "from",
                                 "to_name": "Sujeito",
-                                "message_html": <EmailLayout month={month} schedules={dates.toString()} />
+                                "message_html": EmailLayout.emailForm(month, dates.toString())
                             }
 
                             var service_id = 'mailjet';
